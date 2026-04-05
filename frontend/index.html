@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IntelGene | Command Center</title>
+    <meta name="description" content="IntelGene — answer all your queries fast and accurate.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="splash-screen" role="status" aria-live="polite">
+        <div class="splash-logo-wrap">
+            <img src="logo.png" alt="IntelGene" class="splash-logo-img">
+        </div>
+        <p class="splash-tagline">A True Friend in Need</p>
+        <div class="splash-loader"></div>
+        <span class="splash-status" id="splash-status-text">Initializing Hive Cluster...</span>
+    </div>
+
+
+    <div id="doc-modal-overlay" class="hidden" role="dialog" aria-modal="true" aria-labelledby="doc-modal-title">
+        <div id="doc-modal">
+            <div id="doc-modal-header">
+                <div id="doc-modal-title">
+                    <i class="fa-solid fa-file-code"></i>
+                    <span id="doc-modal-title-text">Source Document</span>
+                </div>
+                <button id="doc-modal-close" aria-label="Close document preview">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="doc-modal-body">Loading document...</div>
+        </div>
+    </div>
+
+
+    <div class="app-container">
+
+        <aside class="sidebar" id="sidebar" role="navigation" aria-label="Command Panel">
+            <div class="sidebar-top">
+
+                <div class="logo">
+                    <img src="logo.png" alt="IntelGene" class="sidebar-logo-img">
+                </div>
+
+
+                <button id="sync-btn" class="primary-btn" title="Trigger knowledge base ingestion">
+                    <i class="fa-solid fa-arrows-rotate"></i>
+                    <span>Sync Enterprise Data</span>
+                </button>
+
+
+                <button id="upload-btn" class="primary-btn" title="Upload .txt or .pdf files">
+                    <i class="fa-solid fa-upload"></i>
+                    <span>Upload Knowledge</span>
+                </button>
+                <input type="file" id="file-input" accept=".txt,.pdf" multiple style="display:none">
+
+
+                <div id="upload-progress" class="upload-progress hidden">
+                    <div class="upload-progress-bar">
+                        <div id="upload-progress-fill" class="upload-progress-fill"></div>
+                    </div>
+                    <span id="upload-progress-label" class="upload-progress-label">Uploading...</span>
+                </div>
+
+            </div>
+
+
+            <div class="sidebar-history" aria-label="Session History">
+            </div>
+
+
+            <div class="sidebar-bottom">
+                <div class="voice-settings">
+                    <label for="voice-select">
+                        <i class="fa-solid fa-wave-square"></i> Voice Synthesis
+                    </label>
+                    <select id="voice-select" class="voice-select" aria-label="Select voice for TTS">
+                        <option value="">Default Neural Voice</option>
+                    </select>
+                </div>
+                <div class="profile" tabindex="0" role="button" aria-label="Enterprise Admin profile">
+                    <div class="avatar"><i class="fa-solid fa-user-shield"></i></div>
+                    <span>Enterprise Admin</span>
+                </div>
+            </div>
+        </aside>
+
+        <!--main content-->
+        <div class="main-content">
+
+            <!-- Floating system notification -->
+            <div id="notification-badge" class="hidden" role="alert">
+                <i class="fa-solid fa-info-circle" id="notif-icon"></i>
+                <span id="notif-text">System Ready</span>
+            </div>
+
+            <!-- Chat Display -->
+            <main id="chat-box" class="chat-container" role="log" aria-live="polite" aria-label="Conversation">
+
+                <!-- Initial AI Welcome Message -->
+                <div class="message ai-message typewriting-finished">
+                    <div class="message-inner">
+                        <div class="chat-avatar ai-avatar" aria-hidden="true">
+                            <img src="logo.png" alt="IntelGene" class="avatar-logo-img">
+                        </div>
+                        <div class="bubble">
+                            <div class="message-text">Welcome to <strong>IntelGene</strong>! I'm here to answer all your
+                                queries fast and accurate. Ask me anything about your enterprise documents.</div>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+
+            <!-- ── INPUT & FOOTER ──────────────── -->
+            <footer class="glass-footer">
+
+                <!-- Thinking UI -->
+                <div id="thinking-ui">
+                    <span id="thinking-step-text">Initializing neural pathways...</span>
+                </div>
+                <div id="thinking-progress">
+                    <div id="thinking-progress-fill"></div>
+                </div>
+
+
+                <!-- Input Row -->
+                <div class="input-container-inner">
+                    <button id="mic-btn" class="mic-btn" title="Activate voice query" aria-label="Start voice input">
+                        <i class="fa-solid fa-microphone"></i>
+                    </button>
+                    <input type="text" id="user-input" placeholder="Query the IntelGene Knowledge Base..."
+                        autocomplete="off" aria-label="Type your query" />
+                    <button id="send-btn" class="send-btn" title="Send query" aria-label="Send query">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+
+                <!-- TTS Controls -->
+                <div id="tts-controls" class="tts-controls hidden">
+                    <button id="stop-speech-btn" class="stop-speech-btn" aria-label="Stop voice playback">
+                        <i class="fa-solid fa-circle-stop"></i> Abort Voice Feedback
+                    </button>
+                </div>
+
+                <!-- Voice Listening Status -->
+                <div id="voice-status" class="hidden" role="status" aria-live="assertive">
+                    🎙️ Listening for commands...
+                </div>
+
+                <!-- Disclaimer -->
+                <p class="disclaimer">
+                    Experimental Intelligence Engine — Verify outputs for mission-critical decisions.
+                </p>
+
+            </footer>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
